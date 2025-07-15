@@ -68,10 +68,25 @@ public class DB {
 			}
 		}
 	
-	// DVDの登録
-	public static void submitDVD(String code, String title) {
+	// DVDの登録1 dvdテーブル
+	public static void submitDVD1(String code, String title) {
 		try(Connection conn = DriverManager.getConnection(URL, USER, PASS);
 			PreparedStatement ps = conn.prepareStatement("INSERT INTO dvd(code, title, is_lent) VALUES(?, ?, true)")){
+				
+			ps.setString(1, code);
+			ps.setString(2, title);
+			int result = ps.executeUpdate();
+			System.out.println("挿入件数:" + result);
+				
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// DVDの登録2 rentalテーブル
+	public static void submitDVD2(String code, String title) {
+		try(Connection conn = DriverManager.getConnection(URL, USER, PASS);
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO rental(customer_id, dvd_code, rented_day. due_day, returned_day) VALUES(0, ?, null, null, null)")){
 				
 			ps.setString(1, code);
 			ps.setString(2, title);
@@ -121,8 +136,8 @@ public class DB {
 		return list;
 	}
 	
-	// DVD削除
-	public static void deleteDVD(String code) {
+	// DVD削除 dvdテーブル
+	public static void deleteDVD1(String code) {
 		try(Connection conn = DriverManager.getConnection(URL, USER, PASS);
 			PreparedStatement ps = conn.prepareStatement("DELETE FROM dvd WHERE code = ?")){
 				
@@ -135,6 +150,21 @@ public class DB {
 		}
 	}
 	
+	
+	// DVD削除 rentalテーブル
+		public static void deleteDVD2(String code) {
+			try(Connection conn = DriverManager.getConnection(URL, USER, PASS);
+				PreparedStatement ps = conn.prepareStatement("DELETE FROM rental WHERE dvd_code = ?")){
+					
+				ps.setString(1, code);
+				int result = ps.executeUpdate();
+				System.out.println("削除件数:" + result);
+					
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	// DVDの検索2(できれば実装)
 		/*public static List<String> searchDVD2(String code) {
 			List<String> list = new ArrayList<>();
