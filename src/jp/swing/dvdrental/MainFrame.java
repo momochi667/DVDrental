@@ -11,7 +11,7 @@ public class MainFrame extends JFrame{
 	    private JPanel cardPanel;
 
 	    public MainFrame() {
-	        setTitle("図書館システム");
+	        setTitle("レンタル管理");
 	        setDefaultCloseOperation(EXIT_ON_CLOSE);
 	        setSize(600, 400);
 
