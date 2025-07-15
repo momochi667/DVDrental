@@ -15,35 +15,36 @@ public class DB {
 	static final String PASS = "";
 	//DBアクセス＆ユーザー名とパスワード
 	
-	//会員の登録
-	public static void insertMember(String name, String birth) {
-		try(Connection conn=DriverManager.getConnection(URL,USER,PASS);
-		//重複チェック
-			String check="SELECT COUNT(*) FROM customer WHERE name=? AND birth=?";
-			try(PreparedStatement checkPs=conn.prepareStatement(check)){
-				checkPs.setString(1,name);
-				checkPs.setString(2,birth);
-				ResultSet rs=checkPs.executeQuery();
-				rs.next();
-				int count=rs.getInt(1);
-				if(count>0){
-					System.out.println("既に会員登録されています");
-					return;
-				}
-			}
-		//登録
-			String insertSql="INSERT INTO customer(name,birth) VALUES(?,?)";
-			try(PreparedStatement ps=conn.prepareStatement(insertSql)){
+	//会員の登録 重複チェック
+		public static int insertMember1(String name, String birth) {
+			int count = 0;
+			try(Connection conn=DriverManager.getConnection(URL,USER,PASS);
+					PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM customer WHERE name=? AND birth=?")){
 				ps.setString(1, name);
-				ps.setString(2,birth);
+				ps.setString(2, birth);
+				ResultSet rs = ps.executeQuery();
 				ps.executeUpdate();
-			}catch(SQLException e) {
-				e.printStackTrace();
+				count = rs.getInt(1);
+			} catch (SQLException e) {
+					e.printStackTrace();
 			}
-	}
+			return count;
+		}
+
+	//会員の登録
+		public static void insertMember2(String name, String birth) {
+			try(Connection conn=DriverManager.getConnection(URL,USER,PASS);
+					PreparedStatement ps = conn.prepareStatement("INSERT INTO customer(name,birth) VALUES(?,?)")){
+				ps.setString(1, name);
+				ps.setString(2, birth);
+				ps.executeUpdate();
+			} catch (SQLException e) {
+					e.printStackTrace();
+			}
+		}
 	
 	//会員検索
-		public static List<String>getmembersearch(int id,String name){
+		public static List<String>getMemberSearch(int id,String name){
 			List<String>customers=new ArrayList<>();
 			try(Connection conn=DriverManager.getConnection(URL,USER,PASS);
 					Statement st=conn.createStatement();
@@ -121,7 +122,7 @@ public class DB {
 	}
 	
 	// DVD削除
-	public static void submitDVD(String code) {
+	public static void deleteDVD(String code) {
 		try(Connection conn = DriverManager.getConnection(URL, USER, PASS);
 			PreparedStatement ps = conn.prepareStatement("DELETE FROM dvd WHERE code = ?")){
 				
