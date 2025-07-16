@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -25,10 +26,10 @@ public class MemberDeletePanel extends JPanel {
     	JButton topbackBtn = new JButton("TOPへ戻る");
     	
     	//削除ボタンリスナーで押されたらDBのインサート発動
-    	/*delBtn.addActionListener(e->{ 
-    		DB.insertMember(idFieled.getText());
+    	delBtn.addActionListener(e->{ 
+    		DB.deleteMember(Integer.parseInt(idFieled.getText()));
             JOptionPane.showMessageDialog(this, "削除が完了しました。");
-        });*/
+        });
     	
     	//会員管理画面に戻るボタン
     	backBtn.addActionListener(e->frame.showPanel("MEMBER"));

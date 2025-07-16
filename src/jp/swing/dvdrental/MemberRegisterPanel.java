@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -13,7 +14,7 @@ public class MemberRegisterPanel extends JPanel {
     	setLayout(new GridLayout(4, 2));
         
         //IDのテキストフィールド
-    	JTextField idField = new JTextField();
+    	JTextField birthField = new JTextField();
     	
     	//名前のテキストフィールド
     	JTextField nameField = new JTextField();
@@ -28,15 +29,17 @@ public class MemberRegisterPanel extends JPanel {
     	JButton topbackBtn = new JButton("TOPへ戻る");
     	
     	//登録ボタンリスナーで押されたらDBのインサート発動
-    	/*registerBtn.addActionListener(e->{ 
-    		return = DB.insertMember(idFieled.getText(), nameFiled.getText());
-    		if ( return == 0 ) {
-            JOptionPane.showMessageDialog(this, "会員登録が完了しました。");
-            idField.setText("");
+    	registerBtn.addActionListener(e->{ 
+    		int a = DB.insertMember1(nameField.getText(), birthField.getText());
+    		if ( a == 0 ) {
+    			DB.insertMember2(nameField.getText(), birthField.getText());
+    			JOptionPane.showMessageDialog(this, "会員登録が完了しました。");
+    			nameField.setText("");
+    			birthField.setText("");
             } else {
-            JOptionPane.showMessageDialog(this, "既に会員登録されています。");
+            	JOptionPane.showMessageDialog(this, "既に会員登録されています。");
             }
-        });*/
+        });
     	
         //会員管理画面に戻るボタン
     	backBtn.addActionListener(e->frame.showPanel("MEMBER"));
@@ -45,10 +48,10 @@ public class MemberRegisterPanel extends JPanel {
         topbackBtn.addActionListener(e->frame.showPanel("TOP"));
         
         //カードに部品を追加
-        add(new JLabel("ID"));
-        add(idField);
         add(new JLabel("氏名"));
         add(nameField);
+        add(new JLabel("生年月日"));
+        add(birthField);
         add(registerBtn);
         add(backBtn);
         add(topbackBtn);

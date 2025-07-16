@@ -1,20 +1,23 @@
 package jp.swing.dvdrental;
 
+import java.awt.GridLayout;
+
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class LentPanel {
+public class LentPanel extends JFrame{
 	 public LentPanel(MainFrame frame) {
-		 setLayout(new LentPanel(3,2));
+		 setLayout(new GridLayout(3,2));
 	    	JTextField memberldField = new JTextField();
 	    	JTextField dvdCodeField = new JTextField();
 	    	 JButton lendBtn = new JButton("貸出");
 	    	 
 	    JButton backBtn = new JButton("TOPへ戻る");
 	 	lendBtn.addActionListener(e ->{
-	    DB.lendDVD1(memberldField.getText(),dvdCodeField.getText());
+	    DB.lendDVD1(Integer.parseInt(memberldField.getText()),dvdCodeField.getText());
 	    JOptionPane.showMessageDialog(this, "貸出しました。");
 	    });
 	 	backBtn.addActionListener(e ->
@@ -28,4 +31,4 @@ public class LentPanel {
     	add(backBtn);
 	}
 
-	}
+}
