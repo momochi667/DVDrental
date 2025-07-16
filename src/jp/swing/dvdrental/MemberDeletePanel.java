@@ -1,5 +1,6 @@
 package jp.swing.dvdrental;
 
+<<<<<<< HEAD
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -44,4 +45,8 @@ public class MemberDeletePanel extends JPanel {
         add(topbackBtn);
 
     }
+=======
+public class MemberDeletePanel {
+
+>>>>>>> d6ca042776571297940834b56b30ba5e24634cd2
 }

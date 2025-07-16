@@ -11,7 +11,11 @@ public class MainFrame extends JFrame{
 	    private JPanel cardPanel;
 
 	    public MainFrame() {
+<<<<<<< HEAD
 	        setTitle("レンタルシステム");
+=======
+	        setTitle("レンタル管理");
+>>>>>>> d6ca042776571297940834b56b30ba5e24634cd2
 	        setDefaultCloseOperation(EXIT_ON_CLOSE);
 	        setSize(600, 400);
 
