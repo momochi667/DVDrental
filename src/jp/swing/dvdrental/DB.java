@@ -98,22 +98,24 @@ public class DB {
 		}
 	}
 	
-	// DVDの検索
+	// DVDの検索(変更)
 	public static List<String> searchDVD(String code) {
 		List<String> list = new ArrayList<>();
-			
-		try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
-			Statement statement = conn.createStatement();
-			ResultSet result = statement.executeQuery("SELECT code, title, is_lent FROM dvd WHERE code LIKE '" + code + "%'")){
 				
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
+			PreparedStatement ps = conn.prepareStatement("SELECT code, title, is_lent FROM dvd WHERE code LIKE '?'")){
+			ps.setString(1, code + "%");
+
+			ResultSet result = ps.executeQuery();
+					
 			while (result.next()) {
 			    list.add(result.getString("code") + "-" + result.getString("title") + "-" + result.getString("is_lent"));
 			}	
-					
+						
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-			
+				
 		return list;
 	}
 	
@@ -165,15 +167,17 @@ public class DB {
 			}
 		}
 		
-	// DVDの検索2(できれば実装)
+		// DVDの検索2(変更)
 		/*public static List<String> searchDVD2(String code) {
 			List<String> list = new ArrayList<>();
 				
 			try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
-				Statement statement = conn.createStatement();
-				ResultSet result = statement.executeQuery("SELECT d.code, d.title, d.is_lent, r.rented_day, r.due_day, r.returned_day "
-						+ "FROM dvd AS d, rental AS r WHERE d.code = r.dvd_code AND code LIKE ' " + code + "%'")){
-					
+				PreparedStatement ps = conn.prepareStatement("SELECT d.code, d.title, d.is_lent, r.rented_day, r.due_day, r.returned_day "
+						+ "FROM dvd AS d, rental AS r WHERE d.code = r.dvd_code AND code LIKE '?'")){
+				ps.setString(1, code + "%");
+
+				ResultSet result = ps.executeQuery();			
+
 				while (result.next()) {
 				    list.add(result.getString("code") + "-" + result.getString("title") + "-" + result.getString("is_lent"));
 				}	
