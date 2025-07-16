@@ -3,12 +3,12 @@ package jp.swing.dvdrental;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class ReturnPanel extends JFrame{
+public class ReturnPanel extends JPanel{
 	 public ReturnPanel(MainFrame frame) {
 	       
 	    	setLayout(new GridLayout(2,2));

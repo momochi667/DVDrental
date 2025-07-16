@@ -3,12 +3,12 @@ package jp.swing.dvdrental;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class LentPanel extends JFrame{
+public class LentPanel extends JPanel{
 	 public LentPanel(MainFrame frame) {
 		 setLayout(new GridLayout(3,2));
 	    	JTextField memberldField = new JTextField();
