@@ -13,7 +13,10 @@ public class MemberSearchPanel extends JPanel {
     	setLayout(new GridLayout(3, 2));
         
         //IDのテキストフィールド
-    	JTextField idornameFieled = new JTextField();
+    	JTextField idField = new JTextField();
+    	
+    	//名前のテキストフィールド
+    	JTextField nameField = new JTextField();
     	
     	//検索ボタン
     	JButton seartchBtn = new JButton("検索");
@@ -25,14 +28,9 @@ public class MemberSearchPanel extends JPanel {
     	JButton topbackBtn = new JButton("TOPへ戻る");
     	
     	//登録ボタンリスナーで押されたらDBのインサート発動
-    	/*seartchBtn.addActionListener(e->{ 
-    		DB.insertMember(idFieled.getText(), nameFiled.getText());
-    		if (  == 0 ) {
-            JOptionPane.showMessageDialog(this, "会員登録が完了しました。");
-            } else {
-            JOptionPane.showMessageDialog(this, "一致するものが見つかりませんでした。");
-            }
-        });*/
+    	seartchBtn.addActionListener(e->{ 
+    		DB.getMemberSearch(Integer.parseInt(idField.getText()), nameField.getText());
+        });
     	
     	//会員管理画面に戻るボタン
     	backBtn.addActionListener(e->frame.showPanel("MEMBER"));
@@ -42,7 +40,8 @@ public class MemberSearchPanel extends JPanel {
         
         //カードに部品を追加
         add(new JLabel("ID又は氏名を入力"));
-        add(idornameFieled);
+        add(idField);
+        add(nameField);
         add(seartchBtn);
         add(backBtn);
         add(topbackBtn);

@@ -14,7 +14,7 @@ public class MemberDeletePanel extends JPanel {
     	setLayout(new GridLayout(3, 2));
         
         //IDのテキストフィールド
-    	JTextField idFieled = new JTextField();
+    	JTextField idField = new JTextField();
     	
     	//削除ボタン
     	JButton delBtn = new JButton("削除");
@@ -27,7 +27,7 @@ public class MemberDeletePanel extends JPanel {
     	
     	//削除ボタンリスナーで押されたらDBのインサート発動
     	delBtn.addActionListener(e->{ 
-    		DB.deleteMember(Integer.parseInt(idFieled.getText()));
+    		DB.deleteMember(Integer.parseInt(idField.getText()));
             JOptionPane.showMessageDialog(this, "削除が完了しました。");
         });
     	
@@ -39,7 +39,7 @@ public class MemberDeletePanel extends JPanel {
         
         //カードに部品を追加
         add(new JLabel("ID"));
-        add(idFieled);
+        add(idField);
         add(delBtn);
         add(backBtn);
         add(topbackBtn);
