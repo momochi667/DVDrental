@@ -18,7 +18,10 @@ public class LentPanel extends JFrame{
 	    JButton backBtn = new JButton("TOPへ戻る");
 	 	lendBtn.addActionListener(e ->{
 	    DB.lendDVD1(Integer.parseInt(memberldField.getText()),dvdCodeField.getText());
+	    DB.lendDVD2(Integer.parseInt(memberldField.getText()),dvdCodeField.getText());
 	    JOptionPane.showMessageDialog(this, "貸出しました。");
+	    memberldField.setText("");
+	    dvdCodeField.setText("");
 	    });
 	 	backBtn.addActionListener(e ->
         frame.showPanel("TOP"));

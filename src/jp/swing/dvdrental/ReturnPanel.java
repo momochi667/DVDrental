@@ -3,11 +3,12 @@ package jp.swing.dvdrental;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class ReturnPanel {
+public class ReturnPanel extends JFrame{
 	 public ReturnPanel(MainFrame frame) {
 	       
 	    	setLayout(new GridLayout(2,2));
@@ -16,7 +17,8 @@ public class ReturnPanel {
 	    	JButton backBtn = new JButton("TOPへ戻る");
 	  
 	    	returnBtn.addActionListener(e->{
-	    		DB.returndvd(dvdCodeField.getText());
+	    		DB.returnDVD1(dvdCodeField.getText());
+	    		DB.returnDVD2(dvdCodeField.getText());
 	    		JOptionPane.showMessageDialog(this, "返却しました");
 	    	});
 	    	
