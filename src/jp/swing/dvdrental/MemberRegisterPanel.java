@@ -13,7 +13,7 @@ public class MemberRegisterPanel extends JPanel {
         //レイアウトに新しいGridLayout(3, 2)
     	setLayout(new GridLayout(4, 2));
         
-        //IDのテキストフィールド
+        //生年月日のテキストフィールド
     	JTextField birthField = new JTextField();
     	
     	//名前のテキストフィールド
@@ -30,8 +30,7 @@ public class MemberRegisterPanel extends JPanel {
     	
     	//登録ボタンリスナーで押されたらDBのインサート発動
     	registerBtn.addActionListener(e->{ 
-    		int a = DB.insertMember1(nameField.getText(), birthField.getText());
-    		if ( a == 0 ) {
+    		if ( DB.insertMember1(nameField.getText(), birthField.getText()) == 0 ) {
     			DB.insertMember2(nameField.getText(), birthField.getText());
     			JOptionPane.showMessageDialog(this, "会員登録が完了しました。");
     			nameField.setText("");
@@ -52,6 +51,7 @@ public class MemberRegisterPanel extends JPanel {
         add(nameField);
         add(new JLabel("生年月日"));
         add(birthField);
+        add(new JLabel(""));
         add(registerBtn);
         add(backBtn);
         add(topbackBtn);

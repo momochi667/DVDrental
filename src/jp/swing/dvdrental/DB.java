@@ -23,8 +23,13 @@ public class DB {
 				ps.setString(1, name);
 				ps.setString(2, birth);
 				ResultSet rs = ps.executeQuery();
-				ps.executeUpdate();
-				count = rs.getInt(1);
+				while(rs.next()) {
+					if (rs.getInt(1) != 0) {
+						count = rs.getInt(1);
+						break;
+					}
+				}
+				ps.executeQuery();
 			} catch (SQLException e) {
 					e.printStackTrace();
 			}
@@ -62,6 +67,7 @@ public class DB {
 		public static void deleteMember(int id) {
 			try(Connection conn=DriverManager.getConnection(URL,USER,PASS);
 					PreparedStatement ps=conn.prepareStatement("DELETE FROM customer WHERE id=?")){
+				ps.setInt(1, id);
 				ps.executeUpdate();
 			}catch(SQLException e) {
 				e.printStackTrace();
@@ -75,8 +81,9 @@ public class DB {
 				
 			ps.setString(1, code);
 			ps.setString(2, title);
-			int result = ps.executeUpdate();
-			System.out.println("挿入件数:" + result);
+			ps.executeUpdate();
+			//int result = ps.executeUpdate();
+			//System.out.println("挿入件数:" + result);
 				
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -84,14 +91,13 @@ public class DB {
 	}
 	
 	// DVDの登録2 rentalテーブル
-	public static void submitDVD2(String code, String title) {
+	public static void submitDVD2(String code) {
 		try(Connection conn = DriverManager.getConnection(URL, USER, PASS);
-			PreparedStatement ps = conn.prepareStatement("INSERT INTO rental(customer_id, dvd_code, rented_day. due_day, returned_day) VALUES(0, ?, null, null, null)")){
-				
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO rental( dvd_code) VALUES(?)")){	
 			ps.setString(1, code);
-			ps.setString(2, title);
-			int result = ps.executeUpdate();
-			System.out.println("挿入件数:" + result);
+			ps.executeUpdate();
+			//int result = ps.executeUpdate();
+			//System.out.println("挿入件数:" + result);
 				
 		} catch(SQLException e) {
 			e.printStackTrace();

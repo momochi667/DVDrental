@@ -8,10 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-
-public class DVDListPanel  extends JPanel {
-	
-	public DVDListPanel (MainFrame frame) {
+public class MemberSearchResultPanel extends JPanel {
+	public MemberSearchResultPanel(MainFrame frame) {
         //レイアウト追加
         setLayout(new BorderLayout());
         
@@ -20,17 +18,19 @@ public class DVDListPanel  extends JPanel {
         area.setEditable(false);
         
         //Listを作成string型
-        List<String> dvds = DB.listDVD();
-        for(String dvd : dvds){ 
-        	area.append(dvd + "\n");
+        List<String>member = MemberSearchPanel.search;
+        for (String mem : member) {
+        	area.append( mem + "\n");
         }
+        JButton backBtn = new JButton("TOPへ戻る");
         
         //TOP戻るボタン
-        JButton backBtn = new JButton("TOPへ戻る");
-        backBtn.addActionListener(e -> frame.showPanel("TOP"));
-        
+        backBtn.addActionListener(e->frame.showPanel("TOP"));
+
         //パネルに部品の追加
         add(new JScrollPane(area),BorderLayout.CENTER);
         add(backBtn,BorderLayout.SOUTH);
-	}
+
+    }
+
 }

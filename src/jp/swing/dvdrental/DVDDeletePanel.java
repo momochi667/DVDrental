@@ -8,26 +8,22 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-//import jp.ac.kcs.swing.library.DB;
-
-public class DVDRegisterPanel  extends JPanel {
-	public DVDRegisterPanel(MainFrame frame) {
-		
+public class DVDDeletePanel extends JPanel {
+	public DVDDeletePanel(MainFrame frame) {
 		//レイアウト
 		setLayout(new GridLayout(4, 2));
 		
 		//ボタンやテキスト
     	JTextField codeField = new JTextField();
-    	JTextField titleField = new JTextField();
-    	JButton registerBtn = new JButton("登録");
+    	JButton registerBtn = new JButton("削除");
     	JButton backBtn = new JButton("DVD管理画面へ戻る");
     	JButton topbackBtn = new JButton("TOPへ戻る");
     	
     	registerBtn.addActionListener(e ->{
-        	//登録ボタンが押されたらIDとタイトル
-        		DB. submitDVD1(codeField.getText(), titleField.getText());
-        		DB. submitDVD2(codeField.getText());
-        		JOptionPane.showMessageDialog(this, "登録しました。");
+        	//削除ボタンが押されたらIDとタイトル
+        		DB. deleteDVD1(codeField.getText());
+        		DB. deleteDVD2(codeField.getText());
+        		JOptionPane.showMessageDialog(this, "削除しました。");
         });
     	
     	//DVD管理画面に戻るボタン
@@ -38,8 +34,6 @@ public class DVDRegisterPanel  extends JPanel {
     	
     	add(new JLabel("DVDコード"));
     	add(codeField);
-    	add(new JLabel("タイトル"));
-    	add(titleField);
     	add(new JLabel(""));
     	add(registerBtn);
     	add(backBtn);

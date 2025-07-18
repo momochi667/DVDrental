@@ -11,14 +11,13 @@ import javax.swing.JTextField;
 public class MemberDeletePanel extends JPanel {
 	public MemberDeletePanel(MainFrame frame) {
         //レイアウトに新しいGridLayout(3, 2)
-    	setLayout(new GridLayout(3, 2));
+    	setLayout(new GridLayout(2, 3));
         
         //IDのテキストフィールド
     	JTextField idField = new JTextField();
     	
     	//削除ボタン
     	JButton delBtn = new JButton("削除");
-    	
     	//会員管理画面に戻るボタン
     	JButton backBtn = new JButton("会員管理画面へ戻る");
     	
@@ -29,6 +28,7 @@ public class MemberDeletePanel extends JPanel {
     	delBtn.addActionListener(e->{ 
     		DB.deleteMember(Integer.parseInt(idField.getText()));
             JOptionPane.showMessageDialog(this, "削除が完了しました。");
+            idField.setText("");
         });
     	
     	//会員管理画面に戻るボタン
@@ -41,6 +41,7 @@ public class MemberDeletePanel extends JPanel {
         add(new JLabel("ID"));
         add(idField);
         add(delBtn);
+        add(new JLabel(""));
         add(backBtn);
         add(topbackBtn);
 

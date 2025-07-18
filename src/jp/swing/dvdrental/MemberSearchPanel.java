@@ -8,9 +8,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class MemberSearchPanel extends JPanel {
+	
+	static String memberid;
+	static String membername;
+
 	public MemberSearchPanel(MainFrame frame) {
         //レイアウトに新しいGridLayout(3, 2)
-    	setLayout(new GridLayout(3, 2));
+    	setLayout(new GridLayout(4, 2));
         
         //IDのテキストフィールド
     	JTextField idField = new JTextField();
@@ -27,9 +31,12 @@ public class MemberSearchPanel extends JPanel {
         //TOPに戻るボタン
     	JButton topbackBtn = new JButton("TOPへ戻る");
     	
-    	//登録ボタンリスナーで押されたらDBのインサート発動
-    	seartchBtn.addActionListener(e->{ 
+    	//検索ボタンリスナーで押されたらDBのインサート発動
+    	seartchBtn.addActionListener(e->{ 	
     		DB.getMemberSearch(Integer.parseInt(idField.getText()), nameField.getText());
+    		memberid = idField.getText();
+    		membername = nameField.getText();
+    		frame.showPanel("MEMBER_SEARCHRESULT");
         });
     	
     	//会員管理画面に戻るボタン
@@ -39,8 +46,9 @@ public class MemberSearchPanel extends JPanel {
         topbackBtn.addActionListener(e->frame.showPanel("TOP"));
         
         //カードに部品を追加
-        add(new JLabel("ID又は氏名を入力"));
+        add(new JLabel("IDを入力"));
         add(idField);
+        add(new JLabel("氏名を入力"));
         add(nameField);
         add(seartchBtn);
         add(backBtn);
