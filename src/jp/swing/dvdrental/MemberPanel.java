@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 public class MemberPanel extends JPanel {
 	public MemberPanel(MainFrame frame) {
-		setLayout(new GridLayout(6, 1, 10, 10));
+		setLayout(new GridLayout(4, 1, 10, 10));
 
 		// 「会員登録」ボタンの設定　インスタンス名memberBtn
 		JButton memberBtn = new JButton("会員登録");

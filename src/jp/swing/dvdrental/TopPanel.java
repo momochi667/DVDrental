@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 public class TopPanel extends JPanel {
 	   public TopPanel(MainFrame frame) {
-	       setLayout(new GridLayout(6, 1, 10, 10));
+	       setLayout(new GridLayout(5, 1, 10, 10));
 	       
 	       //会員パネルに移動　インスタンス名 memberButton
 	       JButton memberButton = new JButton("会員管理");

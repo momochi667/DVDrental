@@ -63,8 +63,28 @@ public class DB {
 			return customers;
 		}
 		
+		//会員の削除 IDが存在するかチェック
+				public static int deleteMember1(int id) {
+					int count = 0;
+					try(Connection conn=DriverManager.getConnection(URL,USER,PASS);
+							PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM customer WHERE id=?")){
+						ps.setInt(1, id);
+						ResultSet rs = ps.executeQuery();
+						while(rs.next()) {
+							if (rs.getInt(1) != 0) {
+								count = rs.getInt(1);
+								break;
+							}
+						}
+						ps.executeQuery();
+					} catch (SQLException e) {
+							e.printStackTrace();
+					}
+					return count;
+				}
+				
 		//会員の削除
-		public static void deleteMember(int id) {
+		public static void deleteMember2(int id) {
 			try(Connection conn=DriverManager.getConnection(URL,USER,PASS);
 					PreparedStatement ps=conn.prepareStatement("DELETE FROM customer WHERE id=?")){
 				ps.setInt(1, id);
@@ -74,6 +94,26 @@ public class DB {
 			}
 		}
 	
+		//コードの重複チェック
+		public static int searchDVDCode(String code) {
+			int count = 0;
+			try(Connection conn=DriverManager.getConnection(URL,USER,PASS);
+					PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM dvd WHERE code=?")){
+				ps.setString(1, code);
+				ResultSet rs = ps.executeQuery();
+				while(rs.next()) {
+					if (rs.getInt(1) != 0) {
+						count = rs.getInt(1);
+						break;
+					}
+				}
+				ps.executeQuery();
+			} catch (SQLException e) {
+					e.printStackTrace();
+			}
+			return count;
+		}
+		
 	// DVDの登録1 dvdテーブル
 	public static void submitDVD1(String code, String title) {
 		try(Connection conn = DriverManager.getConnection(URL, USER, PASS);
@@ -144,35 +184,21 @@ public class DB {
 		return list;
 	}
 	
-	// DVD削除 dvdテーブル
-	public static void deleteDVD1(String code) {
+	// DVD削除 
+	public static void deleteDVD(String code) {
 		try(Connection conn = DriverManager.getConnection(URL, USER, PASS);
 			PreparedStatement ps = conn.prepareStatement("DELETE FROM dvd WHERE code = ?")){
 				
 			ps.setString(1, code);
-			int result = ps.executeUpdate();
-			System.out.println("削除件数:" + result);
+			ps.executeUpdate();
+			//int result = ps.executeUpdate();
+			//System.out.println("削除件数:" + result);
 				
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	
-	// DVD削除 rentalテーブル
-		public static void deleteDVD2(String code) {
-			try(Connection conn = DriverManager.getConnection(URL, USER, PASS);
-				PreparedStatement ps = conn.prepareStatement("DELETE FROM rental WHERE dvd_code = ?")){
-					
-				ps.setString(1, code);
-				int result = ps.executeUpdate();
-				System.out.println("削除件数:" + result);
-					
-			} catch(SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
 		// DVDの検索2(変更)
 		/*public static List<String> searchDVD2(String code) {
 			List<String> list = new ArrayList<>();

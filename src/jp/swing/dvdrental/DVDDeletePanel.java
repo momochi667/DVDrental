@@ -1,6 +1,7 @@
 package jp.swing.dvdrental;
 
 import java.awt.GridLayout;
+import java.text.Normalizer;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -11,7 +12,7 @@ import javax.swing.JTextField;
 public class DVDDeletePanel extends JPanel {
 	public DVDDeletePanel(MainFrame frame) {
 		//レイアウト
-		setLayout(new GridLayout(4, 2));
+		setLayout(new GridLayout(3, 2));
 		
 		//ボタンやテキスト
     	JTextField codeField = new JTextField();
@@ -20,10 +21,16 @@ public class DVDDeletePanel extends JPanel {
     	JButton topbackBtn = new JButton("TOPへ戻る");
     	
     	registerBtn.addActionListener(e ->{
+    		String code = Normalizer.normalize(codeField.getText(), Normalizer.Form.NFKC);
+    		if(DB.searchDVDCode(code) == 1) {
         	//削除ボタンが押されたらIDとタイトル
-        		DB. deleteDVD1(codeField.getText());
-        		DB. deleteDVD2(codeField.getText());
-        		JOptionPane.showMessageDialog(this, "削除しました。");
+        		DB. deleteDVD(codeField.getText());
+        		JOptionPane.showMessageDialog(this, "削除が完了しました。");
+        		codeField.setText("");
+    		} else {
+    			JOptionPane.showMessageDialog(this, "存在しないDVDコードです。");
+    			codeField.setText("");
+    		}
         });
     	
     	//DVD管理画面に戻るボタン

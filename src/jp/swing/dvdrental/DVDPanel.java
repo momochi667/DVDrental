@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 public class DVDPanel  extends JPanel {
 	public DVDPanel(MainFrame frame) {
-	       setLayout(new GridLayout(6, 1, 10, 10));
+	       setLayout(new GridLayout(5, 1, 10, 10));
 
 	       //DVDの登録　インスタンス名 dvdBtn
 	       JButton dvdBtn = new JButton("DVD登録");
@@ -30,8 +30,8 @@ public class DVDPanel  extends JPanel {
 	       topbackBtn.addActionListener(e -> frame.showPanel("TOP"));
 	       
 	       add(dvdBtn);
-	       add(searchBtn);
 	       add(deleteBtn);
+	       add(searchBtn);
 	       add(listBtn);
 	       add(topbackBtn);
 	}

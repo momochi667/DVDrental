@@ -26,9 +26,14 @@ public class MemberDeletePanel extends JPanel {
     	
     	//削除ボタンリスナーで押されたらDBのインサート発動
     	delBtn.addActionListener(e->{ 
-    		DB.deleteMember(Integer.parseInt(idField.getText()));
-            JOptionPane.showMessageDialog(this, "削除が完了しました。");
-            idField.setText("");
+    		if ( DB.deleteMember1(Integer.parseInt(idField.getText())) == 1 ) {
+    			DB.deleteMember2(Integer.parseInt(idField.getText()));
+    			JOptionPane.showMessageDialog(this, "削除が完了しました。");
+    			idField.setText("");
+    		} else {
+    			JOptionPane.showMessageDialog(this, "存在しない会員IDです。");
+    			idField.setText("");
+    		}
         });
     	
     	//会員管理画面に戻るボタン

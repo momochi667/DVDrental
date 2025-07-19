@@ -1,7 +1,6 @@
 package jp.swing.dvdrental;
 
 import java.awt.BorderLayout;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -19,10 +18,10 @@ public class DVDSearchResultPanel extends JPanel {
 	        area.setEditable(false);
 	        
 	        //Listを作成string型
-	        List<String> dvds = DB.searchDVD();
-	        for(String dvd : dvds){ 
-	        	area.append(dvd + "\n");
-	        }
+	        //List<String> dvds = DB.searchDVD();
+	        //for(String dvd : dvds){ 
+	        //	area.append(dvd + "\n");
+	        //}
 	        
 	        //TOP戻るボタン
 	        JButton backBtn = new JButton("TOPへ戻る");

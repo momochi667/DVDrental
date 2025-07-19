@@ -50,6 +50,7 @@ public class MemberSearchPanel extends JPanel {
         add(idField);
         add(new JLabel("氏名を入力"));
         add(nameField);
+        add(new JLabel(""));
         add(seartchBtn);
         add(backBtn);
         add(topbackBtn);

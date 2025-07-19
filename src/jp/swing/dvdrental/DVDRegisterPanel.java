@@ -1,6 +1,7 @@
 package jp.swing.dvdrental;
 
 import java.awt.GridLayout;
+import java.text.Normalizer;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -24,10 +25,23 @@ public class DVDRegisterPanel  extends JPanel {
     	JButton topbackBtn = new JButton("TOPへ戻る");
     	
     	registerBtn.addActionListener(e ->{
-        	//登録ボタンが押されたらIDとタイトル
-        		DB. submitDVD1(codeField.getText(), titleField.getText());
-        		DB. submitDVD2(codeField.getText());
-        		JOptionPane.showMessageDialog(this, "登録しました。");
+    		if(codeField.getText().length() == 0){ //入力確認
+    			JOptionPane.showMessageDialog(this, "商品コードを入力してください。");
+    		} else if(titleField.getText().length() == 0) {
+    			JOptionPane.showMessageDialog(this, "タイトルを入力してください。");
+    		} else {
+    			//コードを半角に変換する
+    			String code = Normalizer.normalize(codeField.getText(), Normalizer.Form.NFKC);
+    			if(DB.searchDVDCode(code) == 0) {
+    				//登録ボタンが押されたらIDとタイトル
+    				DB. submitDVD1(code, titleField.getText());
+    				DB. submitDVD2(code);
+    				JOptionPane.showMessageDialog(this, "商品登録が完了しました。");
+    				//同タイトルを複数回登録する場合を考えてテキストフィールドリセットはしない
+    			} else {
+    				JOptionPane.showMessageDialog(this, "既に商品登録されています。");
+    			}
+    		}
         });
     	
     	//DVD管理画面に戻るボタン

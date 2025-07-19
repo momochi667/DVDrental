@@ -1,6 +1,7 @@
 package jp.swing.dvdrental;
 
 import java.awt.GridLayout;
+import java.text.Normalizer;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -30,14 +31,22 @@ public class MemberRegisterPanel extends JPanel {
     	
     	//登録ボタンリスナーで押されたらDBのインサート発動
     	registerBtn.addActionListener(e->{ 
-    		if ( DB.insertMember1(nameField.getText(), birthField.getText()) == 0 ) {
-    			DB.insertMember2(nameField.getText(), birthField.getText());
-    			JOptionPane.showMessageDialog(this, "会員登録が完了しました。");
-    			nameField.setText("");
-    			birthField.setText("");
-            } else {
-            	JOptionPane.showMessageDialog(this, "既に会員登録されています。");
-            }
+    		if(nameField.getText().length() == 0 ) { //入力確認
+    			JOptionPane.showMessageDialog(this, "氏名を入力してください。");
+    		} else if(birthField.getText().length() == 0) {
+    			JOptionPane.showMessageDialog(this, "生年月日を入力してください。");
+    		}else {
+    			//birthを半角に変換
+    			String birth = Normalizer.normalize(birthField.getText(), Normalizer.Form.NFKC);
+    			if ( DB.insertMember1(nameField.getText(), birth) == 0 ) {
+    				DB.insertMember2(nameField.getText(), birth);
+    				JOptionPane.showMessageDialog(this, "会員登録が完了しました。");
+    				nameField.setText("");
+    				birthField.setText("");
+    			} else {
+    				JOptionPane.showMessageDialog(this, "既に会員登録されています。");
+    			}
+    		}
         });
     	
         //会員管理画面に戻るボタン
