@@ -22,7 +22,9 @@ public class DVDDeletePanel extends JPanel {
     	
     	registerBtn.addActionListener(e ->{
     		String code = Normalizer.normalize(codeField.getText(), Normalizer.Form.NFKC);
-    		if(DB.searchDVDCode(code) == 1) {
+    		if(codeField.getText().length() == 0 ) { //入力確認
+    			JOptionPane.showMessageDialog(this, "DVDコードを入力してください。");
+    		} else if(DB.searchDVDCode(code) == 1) {
         	//削除ボタンが押されたらIDとタイトル
         		DB. deleteDVD(codeField.getText());
         		JOptionPane.showMessageDialog(this, "削除が完了しました。");

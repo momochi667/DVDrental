@@ -1,6 +1,7 @@
 package jp.swing.dvdrental;
 
 import java.awt.GridLayout;
+import java.text.Normalizer;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,14 +18,29 @@ public class ReturnPanel extends JPanel{
 	    	JButton backBtn = new JButton("TOPへ戻る");
 	  
 	    	returnBtn.addActionListener(e->{
-	    		DB.returnDVD1(dvdCodeField.getText());
-	    		DB.returnDVD2(dvdCodeField.getText());
-	    		JOptionPane.showMessageDialog(this, "返却しました");
+	    		//半角変換
+	    		String code = Normalizer.normalize(dvdCodeField.getText(), Normalizer.Form.NFKC);
+	    		
+	    		if (dvdCodeField.getText().length() == 0) {//入力確認
+	    			JOptionPane.showMessageDialog(this, "DVDコードを入力してください。");
+	    		} else if (DB.searchDVDCode(code) == 0) {//DVDコード確認
+		 			//DVDコードが存在するかチェック
+		 			JOptionPane.showMessageDialog(this, "存在しないDVDコードです。");
+		 			dvdCodeField.setText("");
+	    		} else if (DB.returnDVD3(code) == 0) {//貸出処理確認
+	    			JOptionPane.showMessageDialog(this, "貸出処理の行われていないDVDコードです。");
+		 			dvdCodeField.setText("");
+	    		} else {
+	    			DB.returnDVD1(dvdCodeField.getText());
+	    			DB.returnDVD2(dvdCodeField.getText());
+	    			JOptionPane.showMessageDialog(this, "返却が完了しました");
+	    			dvdCodeField.setText("");
+	    		}
 	    	});
 	    	
 	         backBtn.addActionListener(e -> frame.showPanel("TOP"));
 	    	
-	         add(new JLabel("タイトルコード"));
+	         add(new JLabel("DVDコード"));
 	         add(dvdCodeField);
 	         add(returnBtn);
 	         add(backBtn);

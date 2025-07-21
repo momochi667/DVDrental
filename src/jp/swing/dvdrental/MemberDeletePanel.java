@@ -26,12 +26,14 @@ public class MemberDeletePanel extends JPanel {
     	
     	//削除ボタンリスナーで押されたらDBのインサート発動
     	delBtn.addActionListener(e->{ 
-    		if ( DB.deleteMember1(Integer.parseInt(idField.getText())) == 1 ) {
-    			DB.deleteMember2(Integer.parseInt(idField.getText()));
-    			JOptionPane.showMessageDialog(this, "削除が完了しました。");
+    		if(idField.getText().length() == 0 ) { //入力確認
+    			JOptionPane.showMessageDialog(this, "会員IDを入力してください。");
+    		} else if ( DB.deleteMember1(Integer.parseInt(idField.getText())) == 0 ) {
+    			JOptionPane.showMessageDialog(this, "存在しない会員IDです。");
     			idField.setText("");
     		} else {
-    			JOptionPane.showMessageDialog(this, "存在しない会員IDです。");
+    			DB.deleteMember2(Integer.parseInt(idField.getText()));
+    			JOptionPane.showMessageDialog(this, "削除が完了しました。");
     			idField.setText("");
     		}
         });
@@ -43,7 +45,7 @@ public class MemberDeletePanel extends JPanel {
         topbackBtn.addActionListener(e->frame.showPanel("TOP"));
         
         //カードに部品を追加
-        add(new JLabel("ID"));
+        add(new JLabel("会員ID"));
         add(idField);
         add(delBtn);
         add(new JLabel(""));

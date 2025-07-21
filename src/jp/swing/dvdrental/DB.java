@@ -224,7 +224,7 @@ public class DB {
 	//貸出処理その1　dvdテーブルの更新
 	public static void lendDVD1 (int memberID, String dvdCode) {
 		try(Connection conn = DriverManager.getConnection(URL, USER, PASS);
-					PreparedStatement ps = conn.prepareStatement("UPDATE dvd SET is_lent = true WHERE code = ?")){
+					PreparedStatement ps = conn.prepareStatement("UPDATE dvd SET is_lent = false WHERE code = ?")){
 					ps.setString(1, dvdCode);
 					ps.executeUpdate();
 		} catch (SQLException e) {
@@ -235,7 +235,7 @@ public class DB {
 	//貸出処理その2　rentalテーブルの更新
 	public static void lendDVD2(int memberID, String dvdCode) {
 		try(Connection conn = DriverManager.getConnection(URL, USER, PASS);
-				PreparedStatement ps = conn.prepareStatement("UPDATE rental SET customer_id = ? rented_day = CURRENT_DATE due_day = DATE_ADD(CURDATE(), INTERVAL 7 DAY) WHERE dvd_code = ?")){
+				PreparedStatement ps = conn.prepareStatement("UPDATE rental SET customer_id = ?, rented_day = CURRENT_DATE, due_day = CURRENT_DATE + INTERVAL 7 DAY, returned_day = NULL WHERE dvd_code = ?")){
 				ps.setLong(1, memberID);
 				ps.setString(2, dvdCode);
 				ps.executeUpdate();
@@ -262,7 +262,7 @@ public class DB {
 	//返却処理その1　dvdテーブル更新
 	public static void returnDVD1(String code) {
 		try(Connection conn = DriverManager.getConnection(URL, USER, PASS);
-				PreparedStatement ps = conn.prepareStatement("UPDATE dvd SET is_lent = false WHERE code = ?")){
+				PreparedStatement ps = conn.prepareStatement("UPDATE dvd SET is_lent = true WHERE code = ?")){
 				ps.setString(1, code);
 				ps.executeUpdate();
 		} catch (SQLException e) {
@@ -279,5 +279,25 @@ public class DB {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//返却処理その3　既に貸し出し済みの物か確認
+	public static int returnDVD3(String code) {
+		int count = 0;
+		try(Connection conn=DriverManager.getConnection(URL,USER,PASS);
+				PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM dvd WHERE is_lent = false AND code = ?")){
+			ps.setString(1, code);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				if (rs.getInt(1) != 0) {
+					count = rs.getInt(1);
+					break;
+				}
+			}
+			ps.executeQuery();
+		} catch (SQLException e) {
+				e.printStackTrace();
+		}
+		return count;
 	}
 }

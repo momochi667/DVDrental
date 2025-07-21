@@ -26,7 +26,7 @@ public class DVDRegisterPanel  extends JPanel {
     	
     	registerBtn.addActionListener(e ->{
     		if(codeField.getText().length() == 0){ //入力確認
-    			JOptionPane.showMessageDialog(this, "商品コードを入力してください。");
+    			JOptionPane.showMessageDialog(this, "DVDコードを入力してください。");
     		} else if(titleField.getText().length() == 0) {
     			JOptionPane.showMessageDialog(this, "タイトルを入力してください。");
     		} else {
