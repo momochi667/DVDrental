@@ -12,11 +12,13 @@ import javax.swing.JTextField;
 public class ReturnPanel extends JPanel{
 	 public ReturnPanel(MainFrame frame) {
 	       
-	    	setLayout(new GridLayout(2,2));
+	    	setLayout(new GridLayout(3, 2));
 	    	JTextField dvdCodeField = new JTextField();
 	    	JButton returnBtn = new JButton("返却");
 	    	JButton backBtn = new JButton("TOPへ戻る");
-	  
+	    	JButton DVDPanelbackBtn = new JButton("DVD管理画面へ戻る");
+	    	 //貸出画面に行くボタン
+	        JButton LentPanelbackBtn = new JButton("貸出画面へ行く");
 	    	returnBtn.addActionListener(e->{
 	    		//半角変換
 	    		String code = Normalizer.normalize(dvdCodeField.getText(), Normalizer.Form.NFKC);
@@ -38,11 +40,15 @@ public class ReturnPanel extends JPanel{
 	    		}
 	    	});
 	    	
-	         backBtn.addActionListener(e -> frame.showPanel("TOP"));
+	    	backBtn.addActionListener(e -> frame.showPanel("TOP")); 
+		 	DVDPanelbackBtn.addActionListener(e -> frame.showPanel("DVD"));
 	    	
 	         add(new JLabel("DVDコード"));
 	         add(dvdCodeField);
+	         add(new JLabel(""));
 	         add(returnBtn);
 	         add(backBtn);
+	         add(DVDPanelbackBtn);
+	         
 	    }
 	}

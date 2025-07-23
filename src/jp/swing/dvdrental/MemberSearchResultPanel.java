@@ -10,6 +10,7 @@ import javax.swing.JTextArea;
 
 public class MemberSearchResultPanel extends JPanel {
 	public MemberSearchResultPanel(MainFrame frame) {
+		
         //レイアウト追加
         setLayout(new BorderLayout());
         
@@ -18,19 +19,18 @@ public class MemberSearchResultPanel extends JPanel {
         area.setEditable(false);
         
         //Listを作成string型
-        List<String>member = MemberSearchPanel.search;
+        List<String>member = DB.getMemberSearch(MemberSearchPanel.memberid, MemberSearchPanel.membername);
         for (String mem : member) {
         	area.append( mem + "\n");
         }
-        JButton backBtn = new JButton("TOPへ戻る");
+        JButton backBtn = new JButton("会員管理画面へ戻る");
         
         //TOP戻るボタン
-        backBtn.addActionListener(e->frame.showPanel("TOP"));
+        backBtn.addActionListener(e->frame.showPanel("MEMBER"));
 
         //パネルに部品の追加
         add(new JScrollPane(area),BorderLayout.CENTER);
         add(backBtn,BorderLayout.SOUTH);
 
     }
-
 }

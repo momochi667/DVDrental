@@ -10,9 +10,8 @@ import javax.swing.JTextField;
 
 public class MemberSearchPanel extends JPanel {
 	
-	static int memberid;
-	static String membername;
-
+	public static int memberid;
+	public static String membername;
 	public MemberSearchPanel(MainFrame frame) {
         //レイアウトに新しいGridLayout(3, 2)
     	setLayout(new GridLayout(4, 2));
@@ -34,15 +33,17 @@ public class MemberSearchPanel extends JPanel {
     	
     	//検索ボタンリスナーで押されたらDBのインサート発動
     	seartchBtn.addActionListener(e->{ 	
-    		//入力確認
-    		if(idField.getText().length() == 0 && nameField.getText().length() == 0){ //入力確認
+    		if (idField.getText().isEmpty() && nameField.getText().isEmpty()) {
     			JOptionPane.showMessageDialog(this, "会員ID又は氏名を入力してください。");
-    		} else {
-    			DB.getMemberSearch(Integer.parseInt(idField.getText()), nameField.getText());
-    			memberid = Integer.parseInt(idField.getText());
-    			membername = nameField.getText();
+    			} else {
+    			// IDが空欄なら 0 に
+    			memberid = idField.getText().isEmpty() ? 0 : Integer.parseInt(idField.getText());
+
+    			// nameが空なら "%%" を渡す（LIKEで全件ヒットさせる）
+    			membername = nameField.getText().isEmpty() ? "0" : nameField.getText();
+
     			frame.showPanel("MEMBER_SEARCHRESULT");
-    		}
+    			}
         });
     	
     	//会員管理画面に戻るボタン

@@ -52,10 +52,12 @@ public class DB {
 		public static List<String>getMemberSearch(int id,String name){
 			List<String>customers=new ArrayList<>();
 			try(Connection conn=DriverManager.getConnection(URL,USER,PASS);
-					Statement st=conn.createStatement();
-					ResultSet rs=st.executeQuery("SELECT id,name,birth FROM customer WHERE id=? OR name=?")){
+					PreparedStatement ps = conn.prepareStatement("SELECT id, name, birth FROM customer WHERE id = ? OR name LIKE ?")){
+					ps.setInt(1, id);
+					ps.setString(2, "%"+ name + "%");
+					ResultSet rs = ps.executeQuery();
 				while(rs.next()) {
-					customers.add(rs.getString("id")+rs.getString("name")+rs.getString("birth"));
+					customers.add(rs.getString("id")+  "-" + rs.getString("name")+  "-" + rs.getString("birth"));
 				}
 			}catch(SQLException e) {
 				e.printStackTrace();
@@ -171,10 +173,11 @@ public class DB {
 			
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
 			Statement statement = conn.createStatement();
-			ResultSet result = statement.executeQuery("SELECT code, title, is_lent FROM dvd")){
+			ResultSet result = statement.executeQuery("SELECT d.code, d.title, d.is_lent, r.rented_day, r.due_day, r.returned_day "
+					+ "FROM dvd AS d LEFT OUTER JOIN rental AS r ON d.code = r.dvd_code")){
 				
 				while (result.next()) {
-					list.add(result.getString("code") + "-" + result.getString("title") + "-" + result.getString("is_lent"));
+					list.add(result.getString("d.code") + "-" + result.getString("d.title") + "-" + result.getString("d.is_lent") + "-" + result.getString("r.rented_day") + "-" + result.getString("r.due_day"));
 				}	
 					
 		} catch (SQLException e) {
@@ -200,13 +203,14 @@ public class DB {
 	}
 	
 		// DVDの検索2(変更)
-		/*public static List<String> searchDVD2(String code) {
+		public static List<String> searchDVD2(String code, String title) {
 			List<String> list = new ArrayList<>();
 				
 			try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
 				PreparedStatement ps = conn.prepareStatement("SELECT d.code, d.title, d.is_lent, r.rented_day, r.due_day, r.returned_day "
-						+ "FROM dvd AS d, rental AS r WHERE d.code = r.dvd_code AND code LIKE '?'")){
+						+ "FROM dvd AS d LEFT OUTER JOIN rental AS r d.code = r.dvd_code WHERE d.code LIKE ? OR d.title = ?")){
 				ps.setString(1, code + "%");
+				ps.setString(2, "%" + title + "%");
 
 				ResultSet result = ps.executeQuery();			
 
@@ -219,7 +223,7 @@ public class DB {
 			}
 				
 			return list;
-		}*/
+		}
 	
 	//貸出処理その1　dvdテーブルの更新
 	public static void lendDVD1 (int memberID, String dvdCode) {
@@ -249,7 +253,7 @@ public class DB {
 		List<String> DVD = new ArrayList<>();
 		try(Connection conn = DriverManager.getConnection(URL, USER, PASS);
 				Statement st = conn.createStatement();
-				ResultSet rs = st.executeQuery("SELECT d.code, d.title, r.due_day FROM rental AS r LEFF OUTER JOIN dvd AS d ON r.dvd_code = d.code WHERE r.customer_id = ? and d.is_lent = false ORDER BY r.due_day")){ //SQL実行
+				ResultSet rs = st.executeQuery("SELECT d.code, d.title, r.due_day FROM rental AS r LEFT OUTER JOIN dvd AS d ON r.dvd_code = d.code WHERE r.customer_id = ? and d.is_lent = false ORDER BY r.due_day")){ //SQL実行
 				while(rs.next()) { //DVD内に値がある限り続ける
 					DVD.add(rs.getString("d.code") + "-" + rs.getString("d.title") + "-" + rs.getString("r.due_day")); 
 				}

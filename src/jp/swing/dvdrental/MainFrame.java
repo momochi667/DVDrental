@@ -24,7 +24,7 @@ public class MainFrame extends JFrame{
 	        cardPanel.add(new MemberRegisterPanel(this), "MEMBER_REGISTER");
 	        cardPanel.add(new MemberDeletePanel(this), "MEMBER_DELETE");
 	        cardPanel.add(new MemberSearchPanel(this), "MEMBER_SEARCH");
-	        //cardPanel.add(new MemberSearchResultPanel(this), "MEMBER_SEARCHRESULT");
+	        cardPanel.add(new MemberSearchResultPanel(this), "MEMBER_SEARCHRESULT");
 	        cardPanel.add(new DVDPanel(this), "DVD");
 	        cardPanel.add(new DVDRegisterPanel(this), "DVD_REGISTER");
 	        cardPanel.add(new DVDDeletePanel(this), "DVD_DELETE");
@@ -39,6 +39,49 @@ public class MainFrame extends JFrame{
 	    }
 
 		public void showPanel(String name) {
-	        cardLayout.show(cardPanel, name);
+			switch (name) {
+				case "MEMBER_SEARCHRESULT":
+					setContentPane(new MemberSearchResultPanel(this)); // ←★新しく作る
+					break;
+				case "MEMBER":
+					setContentPane(new MemberPanel(this));
+					break;
+				case "TOP":
+					setContentPane(new TopPanel(this));
+					break;
+				case "MEMBER_REGISTER":
+					setContentPane(new MemberRegisterPanel(this));
+					break;
+				case "MEMBER_DELETE":
+					setContentPane(new MemberDeletePanel(this));
+					break;
+				case "MEMBER_SEARCH":
+					setContentPane(new MemberSearchPanel(this));
+					break;
+				case "DVD":
+					setContentPane(new DVDPanel(this));
+					break;
+				case "DVD_REGISTER":
+					setContentPane(new DVDRegisterPanel(this));
+					break;
+				case "DVD_DELETE":
+					setContentPane(new DVDDeletePanel(this));
+					break;
+				case "DVD_SEARCH":
+					setContentPane(new DVDSearchPanel(this));
+					break;
+				case "DVD_SEARCHRESULT":
+					setContentPane(new DVDSearchResultPanel(this));
+					break;
+				case "LENT":
+					setContentPane(new LentPanel(this));
+					break;
+				case "RETURN":
+					setContentPane(new ReturnPanel(this));
+					break;
+					
+			}
+			revalidate();
+			repaint();
 	    }
 }

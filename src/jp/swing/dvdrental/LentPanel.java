@@ -11,12 +11,16 @@ import javax.swing.JTextField;
 
 public class LentPanel extends JPanel{
 	 public LentPanel(MainFrame frame) {
-		 setLayout(new GridLayout(3,2));
+		 setLayout(new GridLayout(4,2));
 	    	JTextField memberIdField = new JTextField();
 	    	JTextField dvdCodeField = new JTextField();
 	    	 JButton lendBtn = new JButton("貸出");
 	    	 
 	    JButton backBtn = new JButton("TOPへ戻る");
+	    //返却画面に行くボタン
+	    JButton ReturnPanebackBtn = new JButton("返却画面へ行く");
+	    //dvd管理に行くボタン
+	    JButton DVDPanelbackBtn = new JButton("DVD管理画面へ行く");
 	    
 	 	lendBtn.addActionListener(e ->{ 
 	 		//半角変換
@@ -42,15 +46,17 @@ public class LentPanel extends JPanel{
 	 			dvdCodeField.setText("");
 	 		}
 	    });
-	 	backBtn.addActionListener(e ->
-        frame.showPanel("TOP"));
+	 	backBtn.addActionListener(e -> frame.showPanel("TOP")); 
+	 	DVDPanelbackBtn.addActionListener(e -> frame.showPanel("DVD"));
 	 	
 	 	add(new JLabel("会員ID"));
     	add(memberIdField);
     	add(new JLabel("DVDコード"));
     	add(dvdCodeField);
+    	add(new JLabel(""));
     	add(lendBtn);
     	add(backBtn);
+    	add(DVDPanelbackBtn);
 	}
 
 }
