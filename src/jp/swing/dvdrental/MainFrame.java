@@ -73,6 +73,9 @@ public class MainFrame extends JFrame{
 				case "DVD_SEARCHRESULT":
 					setContentPane(new DVDSearchResultPanel(this));
 					break;
+				case "DVD_LIST":
+					setContentPane(new DVDListPanel(this));
+					break;
 				case "LENT":
 					setContentPane(new LentPanel(this));
 					break;

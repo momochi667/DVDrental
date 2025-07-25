@@ -177,7 +177,7 @@ public class DB {
 					+ "FROM dvd AS d LEFT OUTER JOIN rental AS r ON d.code = r.dvd_code")){
 				
 				while (result.next()) {
-					list.add(result.getString("d.code") + "-" + result.getString("d.title") + "-" + result.getString("d.is_lent") + "-" + result.getString("r.rented_day") + "-" + result.getString("r.due_day"));
+					list.add(result.getString("d.code") + "," + result.getString("d.title") + "," + result.getString("d.is_lent") + "," + result.getString("r.rented_day") + "," + result.getString("r.due_day") + "," + result.getString("r.returned_day"));
 				}	
 					
 		} catch (SQLException e) {

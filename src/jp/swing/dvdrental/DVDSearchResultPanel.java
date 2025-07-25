@@ -31,12 +31,23 @@ public class DVDSearchResultPanel extends JPanel {
 		        }
 	        }
 	        
+	        //CENTERに入れるためのパネル作成
+	        JPanel centerPanel = new JPanel();
+	        centerPanel.setLayout(new BorderLayout());
+	        centerPanel.add(new JScrollPane(area), BorderLayout.CENTER);
+	        
+	        //DVD管理画面に戻るボタン
+	        JButton centerBtn = new JButton("DVD管理画面に戻る");
+	        centerPanel.add(centerBtn, BorderLayout.SOUTH);
+	        centerBtn.addActionListener(e -> frame.showPanel("DVD"));
+	        
 	        //TOP戻るボタン
 	        JButton backBtn = new JButton("TOPへ戻る");
 	        backBtn.addActionListener(e -> frame.showPanel("TOP"));
 	        
 	        //パネルに部品の追加
-	        add(new JScrollPane(area),BorderLayout.CENTER);
+	        add(centerPanel, BorderLayout.CENTER);
 	        add(backBtn,BorderLayout.SOUTH);
+	        
 		}
 }

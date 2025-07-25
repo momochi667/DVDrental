@@ -1,5 +1,6 @@
 package jp.swing.dvdrental;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -23,8 +24,8 @@ public class MemberSearchPanel extends JPanel {
     	JTextField nameField = new JTextField();
     	
     	//検索ボタン
-    	JButton seartchBtn = new JButton("検索");
-    	
+    	JButton searchBtn = new JButton("検索");
+    	searchBtn.setBackground(Color.ORANGE);
     	//会員管理画面に戻るボタン
     	JButton backBtn = new JButton("会員管理画面へ戻る");
     	
@@ -32,7 +33,7 @@ public class MemberSearchPanel extends JPanel {
     	JButton topbackBtn = new JButton("TOPへ戻る");
     	
     	//検索ボタンリスナーで押されたらDBのインサート発動
-    	seartchBtn.addActionListener(e->{ 	
+    	searchBtn.addActionListener(e->{ 	
     		if (idField.getText().isEmpty() && nameField.getText().isEmpty()) {
     			JOptionPane.showMessageDialog(this, "会員ID又は氏名を入力してください。");
     			} else {
@@ -58,7 +59,7 @@ public class MemberSearchPanel extends JPanel {
         add(new JLabel("氏名を入力"));
         add(nameField);
         add(new JLabel(""));
-        add(seartchBtn);
+        add(searchBtn);
         add(backBtn);
         add(topbackBtn);
 

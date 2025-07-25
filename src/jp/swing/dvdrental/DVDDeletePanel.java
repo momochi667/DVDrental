@@ -1,5 +1,6 @@
 package jp.swing.dvdrental;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.text.Normalizer;
 
@@ -17,6 +18,7 @@ public class DVDDeletePanel extends JPanel {
 		//ボタンやテキスト
     	JTextField codeField = new JTextField();
     	JButton registerBtn = new JButton("削除");
+    	registerBtn.setBackground(Color.ORANGE);
     	JButton backBtn = new JButton("DVD管理画面へ戻る");
     	JButton topbackBtn = new JButton("TOPへ戻る");
     	

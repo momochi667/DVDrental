@@ -1,5 +1,6 @@
 package jp.swing.dvdrental;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.text.Normalizer;
 
@@ -15,10 +16,11 @@ public class ReturnPanel extends JPanel{
 	    	setLayout(new GridLayout(3, 2));
 	    	JTextField dvdCodeField = new JTextField();
 	    	JButton returnBtn = new JButton("返却");
+	    	returnBtn.setBackground(Color.ORANGE);
 	    	JButton backBtn = new JButton("TOPへ戻る");
 	    	JButton DVDPanelbackBtn = new JButton("DVD管理画面へ戻る");
 	    	 //貸出画面に行くボタン
-	        JButton LentPanelbackBtn = new JButton("貸出画面へ行く");
+	        //JButton LentPanelbackBtn = new JButton("貸出画面へ行く");
 	    	returnBtn.addActionListener(e->{
 	    		//半角変換
 	    		String code = Normalizer.normalize(dvdCodeField.getText(), Normalizer.Form.NFKC);

@@ -1,5 +1,6 @@
 package jp.swing.dvdrental;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.text.Normalizer;
 
@@ -15,10 +16,10 @@ public class LentPanel extends JPanel{
 	    	JTextField memberIdField = new JTextField();
 	    	JTextField dvdCodeField = new JTextField();
 	    	 JButton lendBtn = new JButton("貸出");
-	    	 
+	    	 lendBtn.setBackground(Color.ORANGE);
 	    JButton backBtn = new JButton("TOPへ戻る");
 	    //返却画面に行くボタン
-	    JButton ReturnPanebackBtn = new JButton("返却画面へ行く");
+	    //JButton ReturnPanebackBtn = new JButton("返却画面へ行く");
 	    //dvd管理に行くボタン
 	    JButton DVDPanelbackBtn = new JButton("DVD管理画面へ行く");
 	    

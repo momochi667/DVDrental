@@ -20,13 +20,16 @@ public class MemberSearchResultPanel extends JPanel {
         
         //Listを作成string型
         List<String>member = DB.getMemberSearch(MemberSearchPanel.memberid, MemberSearchPanel.membername);
+        if ( member.isEmpty()) {
+        	area.append("一致する検索結果が存在しません。");
+        }
         for (String mem : member) {
         	area.append( mem + "\n");
         }
-        JButton backBtn = new JButton("会員管理画面へ戻る");
+        JButton backBtn = new JButton("会員検索画面へ戻る");
         
         //TOP戻るボタン
-        backBtn.addActionListener(e->frame.showPanel("MEMBER"));
+        backBtn.addActionListener(e->frame.showPanel("MEMBER_SEARCH"));
 
         //パネルに部品の追加
         add(new JScrollPane(area),BorderLayout.CENTER);

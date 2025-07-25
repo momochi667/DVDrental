@@ -1,5 +1,6 @@
 package jp.swing.dvdrental;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.text.Normalizer;
 
@@ -22,7 +23,7 @@ public class MemberRegisterPanel extends JPanel {
     	
     	//登録ボタン
     	JButton registerBtn = new JButton("登録");
-    	
+    	registerBtn.setBackground(Color.ORANGE);
     	//会員管理画面に戻るボタン
     	JButton backBtn = new JButton("会員管理画面へ戻る");
     	
