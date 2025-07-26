@@ -28,8 +28,8 @@ public class MainFrame extends JFrame{
 	        cardPanel.add(new DVDPanel(this), "DVD");
 	        cardPanel.add(new DVDRegisterPanel(this), "DVD_REGISTER");
 	        cardPanel.add(new DVDDeletePanel(this), "DVD_DELETE");
-	        //cardPanel.add(new DVDSearchPanel(this), "DVD_SEARCH");
-	        //cardPanel.add(new DVDSearchResultPanel(this), "DVD_SEARCHRESULT");
+	        cardPanel.add(new DVDSearchPanel(this), "DVD_SEARCH");
+	        cardPanel.add(new DVDSearchResultPanel(this), "DVD_SEARCHRESULT");
 	        cardPanel.add(new DVDListPanel(this), "DVD_LIST");
 	        cardPanel.add(new LentPanel(this), "LENT");
 	        cardPanel.add(new ReturnPanel(this), "RETURN");

@@ -15,7 +15,7 @@ public class DVDPanel  extends JPanel {
 	       
 	       //DVDの検索　インスタンス名 searchBtn
 	       JButton searchBtn = new JButton("DVD検索");
-	       searchBtn.addActionListener(e -> frame.showPanel("DVD_SEARCHRESULT"));
+	       searchBtn.addActionListener(e -> frame.showPanel("DVD_SEARCH"));
 	       
 	       //DVDの削除　インスタンス名 searchBtn
 	       JButton deleteBtn = new JButton("DVD削除");

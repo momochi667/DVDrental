@@ -6,7 +6,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.JTable;
 
 public class DVDSearchResultPanel extends JPanel {
 		
@@ -14,39 +14,22 @@ public class DVDSearchResultPanel extends JPanel {
 	        //レイアウト追加
 	        setLayout(new BorderLayout());
 	        
-	        //表示フィールド追加
-	        JTextArea area = new JTextArea();
-	        area.setEditable(false);
-	        
-	        //Listを作成string型
-	        if(DVDSearchPanel.code != null ) {
-	        	List<String> searchs = DB.searchDVD(DVDSearchPanel.code); 
-	        	for(String search : searchs){ 
-	        		area.append(search + "\n");
-	        	}
-	        }else if(DVDSearchPanel.title != null ) {
-		        List<String> searchs = DB.searchDVD(DVDSearchPanel.title); 
-		        for(String search : searchs){ 
-		        	area.append(search + "\n");
-		        }
+	        String[]title = {"DVDコード", "タイトル", "在庫", "貸出日", "返却予定日", "返却日"};
+	        List<String> dvds = DB.searchDVD2(DVDSearchPanel.code, DVDSearchPanel.title);
+	        //二次元配列に変換
+	        String[][] list = new String[dvds.size()][];  
+	        for(int i=0; i < dvds.size();i++) {
+	        	list[i] = dvds.get(i).split(",");
 	        }
+	        //表示フィールド追加
+	        JTable table = new JTable(list, title);
 	        
-	        //CENTERに入れるためのパネル作成
-	        JPanel centerPanel = new JPanel();
-	        centerPanel.setLayout(new BorderLayout());
-	        centerPanel.add(new JScrollPane(area), BorderLayout.CENTER);
-	        
-	        //DVD管理画面に戻るボタン
-	        JButton centerBtn = new JButton("DVD管理画面に戻る");
-	        centerPanel.add(centerBtn, BorderLayout.SOUTH);
-	        centerBtn.addActionListener(e -> frame.showPanel("DVD"));
-	        
-	        //TOP戻るボタン
-	        JButton backBtn = new JButton("TOPへ戻る");
-	        backBtn.addActionListener(e -> frame.showPanel("TOP"));
+	        //管理に戻るボタン
+	        JButton backBtn = new JButton("DVD検索画面へ戻る");
+	        backBtn.addActionListener(e -> frame.showPanel("DVD_SEARCH"));
 	        
 	        //パネルに部品の追加
-	        add(centerPanel, BorderLayout.CENTER);
+	        add(new JScrollPane(table), BorderLayout.CENTER);
 	        add(backBtn,BorderLayout.SOUTH);
 	        
 		}

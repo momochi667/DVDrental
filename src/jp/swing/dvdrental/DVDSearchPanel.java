@@ -1,6 +1,8 @@
 package jp.swing.dvdrental;
 
+import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,6 +22,7 @@ public class DVDSearchPanel  extends JPanel {
     	JTextField codeField = new JTextField();
     	JTextField titleField = new JTextField();
     	JButton searchBtn = new JButton("検索");
+    	searchBtn.setBackground(Color.ORANGE);
     	JButton backBtn = new JButton("DVD管理画面へ戻る");
     	JButton topbackBtn = new JButton("TOPへ戻る");
     	
@@ -27,11 +30,20 @@ public class DVDSearchPanel  extends JPanel {
         	//登録ボタンが押されたらIDとタイトル
     		if(codeField.getText().length() == 0 && titleField.getText().length() == 0){ //入力確認
     			JOptionPane.showMessageDialog(this, "DVDコード又はタイトルを入力してください。");
-    		} else {
-    			code = codeField.getText();
-    			title = titleField.getText();
-        		JOptionPane.showMessageDialog(this, "検索結果を表示します。");
+    		} 
+    		
+    		code = codeField.getText().isEmpty() ? "a" : codeField.getText();
+			title = titleField.getText().isEmpty() ? "a" : titleField.getText();
+    		List<String>list = DB.searchDVD2(code, title);
+    		
+    		if(list.isEmpty()) {
+    			JOptionPane.showMessageDialog(this, "一致する検索結果が見つかりませんでした。");
+    			codeField.setText("");
+    			titleField.setText("");
+    		}else {
         		frame.showPanel("DVD_SEARCHRESULT");
+        		codeField.setText("");
+    			titleField.setText("");
     		}
         	});
     	
@@ -45,6 +57,7 @@ public class DVDSearchPanel  extends JPanel {
     	add(codeField);
     	add(new JLabel("タイトル"));
     	add(titleField);
+    	add(new JLabel(""));
     	add(searchBtn);
     	add(backBtn);
     	add(topbackBtn);

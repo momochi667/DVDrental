@@ -2,6 +2,7 @@ package jp.swing.dvdrental;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -34,17 +35,43 @@ public class MemberSearchPanel extends JPanel {
     	
     	//検索ボタンリスナーで押されたらDBのインサート発動
     	searchBtn.addActionListener(e->{ 	
+    		//入力チェック
     		if (idField.getText().isEmpty() && nameField.getText().isEmpty()) {
     			JOptionPane.showMessageDialog(this, "会員ID又は氏名を入力してください。");
-    			} else {
-    			// IDが空欄なら 0 に
-    			memberid = idField.getText().isEmpty() ? 0 : Integer.parseInt(idField.getText());
-
-    			// nameが空なら "%%" を渡す（LIKEで全件ヒットさせる）
-    			membername = nameField.getText().isEmpty() ? "0" : nameField.getText();
-
-    			frame.showPanel("MEMBER_SEARCHRESULT");
+    			return;
+    		}
+    		
+    		//会員ID欄に数値が打ち込まれてるかチェック
+    		if(idField.getText().length() != 0) {
+    			boolean isDigit = true;
+    			try {
+    				Integer.parseInt(idField.getText());
+    			} catch (Exception err) {
+    				isDigit = false;
     			}
+    			
+    			if(isDigit == false) {
+    				JOptionPane.showMessageDialog(this, "会員ID欄に数字を入力してください。");
+    				idField.setText("");
+    				return;
+    			}
+            }
+            
+            //返り値判定
+    		memberid = idField.getText().isEmpty() ? 0 : Integer.parseInt(idField.getText());
+			membername = nameField.getText().isEmpty() ? "0" : nameField.getText();
+    		List<String>list = DB.getMemberSearch(memberid, membername);
+    		
+    		if(list.isEmpty()) { 
+    			JOptionPane.showMessageDialog(this, "一致する検索結果が見つかりませんでした。");
+    			idField.setText("");
+    			nameField.setText("");
+    		} else {
+    			//結果パネルに移動
+    			frame.showPanel("MEMBER_SEARCHRESULT");
+    			idField.setText("");
+    			nameField.setText("");
+    		}
         });
     	
     	//会員管理画面に戻るボタン

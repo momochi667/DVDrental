@@ -57,7 +57,7 @@ public class DB {
 					ps.setString(2, "%"+ name + "%");
 					ResultSet rs = ps.executeQuery();
 				while(rs.next()) {
-					customers.add(rs.getString("id")+  "-" + rs.getString("name")+  "-" + rs.getString("birth"));
+					customers.add(rs.getString("id") + "," + rs.getString("name") + "," + rs.getString("birth"));
 				}
 			}catch(SQLException e) {
 				e.printStackTrace();
@@ -146,8 +146,8 @@ public class DB {
 		}
 	}
 	
-	// DVDの検索(変更)
-	public static List<String> searchDVD(String code) {
+	// DVDの検索(使わない)
+	/*public static List<String> searchDVD(String code) {
 		List<String> list = new ArrayList<>();
 				
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
@@ -157,7 +157,7 @@ public class DB {
 			ResultSet result = ps.executeQuery();
 					
 			while (result.next()) {
-			    list.add(result.getString("code") + "-" + result.getString("title") + "-" + result.getString("is_lent"));
+			    list.add(result.getString("code") + "," + result.getString("title") + "," + result.getString("is_lent"));
 			}	
 						
 		} catch (SQLException e) {
@@ -165,7 +165,7 @@ public class DB {
 		}
 				
 		return list;
-	}
+	}*/
 	
 	// DVD一覧
 	public static List<String> listDVD() {
@@ -207,18 +207,15 @@ public class DB {
 			List<String> list = new ArrayList<>();
 				
 			try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
-				PreparedStatement ps = conn.prepareStatement("SELECT d.code, d.title, d.is_lent, r.rented_day, r.due_day, r.returned_day "
-						+ "FROM dvd AS d LEFT OUTER JOIN rental AS r d.code = r.dvd_code WHERE d.code LIKE ? OR d.title = ?")){
+					PreparedStatement ps = conn.prepareStatement("SELECT d.code, d.title, d.is_lent, r.rented_day, r.due_day, r.returned_day "
+						+ "FROM dvd AS d LEFT OUTER JOIN rental AS r ON d.code = r.dvd_code WHERE d.code LIKE ? OR d.title LIKE ?")){
 				ps.setString(1, code + "%");
 				ps.setString(2, "%" + title + "%");
-
-				ResultSet result = ps.executeQuery();			
-
-				while (result.next()) {
-				    list.add(result.getString("code") + "-" + result.getString("title") + "-" + result.getString("is_lent"));
-				}	
-						
-			} catch (SQLException e) {
+				ResultSet rs = ps.executeQuery();
+				while(rs.next()) {
+					list.add(rs.getString("d.code") + "," + rs.getString("d.title") + "," + rs.getString("d.is_lent") + "," + rs.getString("r.rented_day") + "," + rs.getString("r.due_day") + "," + rs.getString("r.returned_day"));
+				}
+			}catch(SQLException e) {
 				e.printStackTrace();
 			}
 				
