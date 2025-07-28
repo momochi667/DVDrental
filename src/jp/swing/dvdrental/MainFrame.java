@@ -25,6 +25,7 @@ public class MainFrame extends JFrame{
 	        cardPanel.add(new MemberDeletePanel(this), "MEMBER_DELETE");
 	        cardPanel.add(new MemberSearchPanel(this), "MEMBER_SEARCH");
 	        cardPanel.add(new MemberSearchResultPanel(this), "MEMBER_SEARCHRESULT");
+	        cardPanel.add(new MemberListPanel(this), "MEMBER_LIST");
 	        cardPanel.add(new DVDPanel(this), "DVD");
 	        cardPanel.add(new DVDRegisterPanel(this), "DVD_REGISTER");
 	        cardPanel.add(new DVDDeletePanel(this), "DVD_DELETE");
@@ -57,6 +58,9 @@ public class MainFrame extends JFrame{
 					break;
 				case "MEMBER_SEARCH":
 					setContentPane(new MemberSearchPanel(this));
+					break;
+				case "MEMBER_LIST":
+					setContentPane(new MemberListPanel(this));
 					break;
 				case "DVD":
 					setContentPane(new DVDPanel(this));

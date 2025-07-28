@@ -2,6 +2,7 @@ package jp.swing.dvdrental;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.text.Normalizer;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -30,9 +31,10 @@ public class DVDSearchPanel  extends JPanel {
         	//登録ボタンが押されたらIDとタイトル
     		if(codeField.getText().length() == 0 && titleField.getText().length() == 0){ //入力確認
     			JOptionPane.showMessageDialog(this, "DVDコード又はタイトルを入力してください。");
+    			return;
     		} 
     		
-    		code = codeField.getText().isEmpty() ? "a" : codeField.getText();
+    		code = codeField.getText().isEmpty() ? "a" : Normalizer.normalize(codeField.getText(), Normalizer.Form.NFKC);
 			title = titleField.getText().isEmpty() ? "a" : titleField.getText();
     		List<String>list = DB.searchDVD2(code, title);
     		
@@ -40,6 +42,7 @@ public class DVDSearchPanel  extends JPanel {
     			JOptionPane.showMessageDialog(this, "一致する検索結果が見つかりませんでした。");
     			codeField.setText("");
     			titleField.setText("");
+    			return;
     		}else {
         		frame.showPanel("DVD_SEARCHRESULT");
         		codeField.setText("");

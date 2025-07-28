@@ -65,6 +65,21 @@ public class DB {
 			return customers;
 		}
 		
+		//会員検索
+				public static List<String>getMember(){
+					List<String>customers=new ArrayList<>();
+					try(Connection conn=DriverManager.getConnection(URL,USER,PASS);
+							PreparedStatement ps = conn.prepareStatement("SELECT id, name, birth FROM customer")){
+							ResultSet rs = ps.executeQuery();
+						while(rs.next()) {
+							customers.add(rs.getString("id") + "," + rs.getString("name") + "," + rs.getString("birth"));
+						}
+					}catch(SQLException e) {
+						e.printStackTrace();
+					}
+					return customers;
+				}
+				
 		//会員の削除 IDが存在するかチェック
 				public static int deleteMember1(int id) {
 					int count = 0;

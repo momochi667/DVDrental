@@ -49,8 +49,8 @@ public class ReturnPanel extends JPanel{
 	         add(dvdCodeField);
 	         add(new JLabel(""));
 	         add(returnBtn);
-	         add(backBtn);
 	         add(DVDPanelbackBtn);
+	         add(backBtn);
 	         
 	    }
 	}

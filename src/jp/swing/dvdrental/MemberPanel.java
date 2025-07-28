@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 public class MemberPanel extends JPanel {
 	public MemberPanel(MainFrame frame) {
-		setLayout(new GridLayout(4, 1, 10, 10));
+		setLayout(new GridLayout(5, 1, 10, 10));
 
 		// 「会員登録」ボタンの設定　インスタンス名memberBtn
 		JButton memberBtn = new JButton("会員登録");
@@ -21,6 +21,9 @@ public class MemberPanel extends JPanel {
 	    JButton searchBtn = new JButton("会員検索");
 	    searchBtn.addActionListener(e -> frame.showPanel("MEMBER_SEARCH"));
 	    
+	    JButton listBtn = new JButton("会員一覧");
+	    listBtn.addActionListener(e -> frame.showPanel("MEMBER_LIST"));
+	    
 	    //TOPに戻るボタン  
 	    JButton backBtn = new JButton("TOPへ戻る");
 	    backBtn.addActionListener(e->frame.showPanel("TOP"));
@@ -28,6 +31,7 @@ public class MemberPanel extends JPanel {
 	    add(memberBtn);
 	    add(delBtn);
 	    add(searchBtn);
+	    add(listBtn);
 	    add(backBtn);
 	
 	}

@@ -56,8 +56,8 @@ public class LentPanel extends JPanel{
     	add(dvdCodeField);
     	add(new JLabel(""));
     	add(lendBtn);
-    	add(backBtn);
     	add(DVDPanelbackBtn);
+    	add(backBtn);
 	}
 
 }
